@@ -1,6 +1,3 @@
-/*
- *	  CSC 501 - HW5 sample code
- */
 
 #include <arpa/inet.h>
 #include <netinet/in.h>

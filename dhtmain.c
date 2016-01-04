@@ -28,9 +28,6 @@ typedef struct node {
 NODE *head = NULL;
 NODE *finger_table_head = NULL;
 
-/*
- *Sid: Count Number of elements in the nodelist
- */
 int count_nodes(NODE *head){
     int i = 0;
     NODE *ptr = head;
@@ -44,9 +41,6 @@ int count_nodes(NODE *head){
 
 }
 
-/*
- *Sid:Count number of lines in file
- */
 int countlines(FILE *fp) {
 	char ch;
 	int number=0;
@@ -242,16 +236,11 @@ void forward_message(int port, char *m)
 		close(sc);
 }
 
-/*
- *Sid: Finger Table initialization
- */
 void create_finger_table(char *my_addr) {
     
-    //Sid: my_pos flag is set once my position is found in the endpoints list.
     int my_pos = 0;
     NODE *ptr = head;
     double N = count_nodes(ptr);
-    //Sid: Log of N to the base 2
     N = floor(log2(N));
     double count = 0.0;
     char checkString[100];
@@ -264,24 +253,20 @@ void create_finger_table(char *my_addr) {
         if (strlen(checkString) == strlen(my_addr) && strcmp(checkString, my_addr)==0) {
 
             if (my_pos == 1) {
-                //Sid: if my_pos is already set, we have looped around the linked list somehow, time to end the loop
                 break;
             } else {
-                //Sid: Set the my_pos flag and get the next log N elements in the list
                 my_pos = 1;
             }
 
         }
 
         if (my_pos == 1) {
-            //Sid: Get the next log N elements
             NODE *element = (NODE*)malloc(sizeof(NODE));
             element->node = ptr->node;
             finger_table_head = insert(element, finger_table_head);
             count++;
         }
 
-        //Sid: Check if log N(or N) elements have been inserted into the finger table
         if ( count == N) {
             break;
         }
@@ -289,7 +274,6 @@ void create_finger_table(char *my_addr) {
         if (ptr->next != NULL) {
             ptr = ptr->next;
         } else {
-            //Sid: If reached the end of the list point to the head and begin traversing again
             ptr = head;
         }
     }
@@ -352,7 +336,6 @@ printf("I am already here\n");
 
 	if (max_node == count ) {
 		//create_finger_table(address);
-                //Sid: Display Finger Table
                 printf("Finger Table: \n");
                 //display_list(finger_table_head);
                 printf("\n");
